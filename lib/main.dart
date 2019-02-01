@@ -64,15 +64,24 @@ class _CardFlipperState extends State<CardFlipper> {
     ];
   }
   Widget _buildCard(int cardIndex, int cardCount, double scrollPercent) {
+    final cardScrollPercent = scrollPercent / (1/cardCount);
     return FractionalTranslation(
-      translation: Offset(0.1 * cardIndex, 0.0),
-      child: Card());
+      translation: Offset(cardIndex - cardScrollPercent, 0.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Card(),
+      ));
   }
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: _buildCards(),
+    return GestureDetector(
+      onHorizontalDragStart: onHorizontalDragStart(),
+      onHorizontalDragUpdate: onHorizontalDragUpdate(),
+      onHorizontalDragEnd: _onHorizontalDragEnd(),
+          child: Stack(
+        children: _buildCards(),
    
+      ),
     );
   }
 }
