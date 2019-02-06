@@ -6,7 +6,7 @@ import './card_data.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   runApp(MyApp());
- }
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -31,9 +31,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double scrollPercent = 0.0;
-  
+
   Widget build(BuildContext context) {
-   
     return Scaffold(
         backgroundColor: Color(0xFF26384f),
         //appBar: AppBar(
@@ -41,8 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
         //),
         body: Padding(
           padding: EdgeInsets.all(16.0),
-                  child: Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
                 width: double.infinity,
@@ -98,8 +98,8 @@ class _CardFlipperState extends State<CardFlipper>
         setState(() {
           scrollPercent = lerpDouble(
               finishScrollStart, finishScrollEnd, finishScrollController.value);
-              
-          if(widget.onScroll != null) {
+
+          if (widget.onScroll != null) {
             widget.onScroll(scrollPercent);
           }
         });
@@ -126,7 +126,7 @@ class _CardFlipperState extends State<CardFlipper>
               (-singleCardDragPercent / widget.cards.length))
           .clamp(0.0, 1.0 - (1 / widget.cards.length));
 
-      if(widget.onScroll != null) {
+      if (widget.onScroll != null) {
         widget.onScroll(scrollPercent);
       }
     });
@@ -198,11 +198,14 @@ class Card extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           child: FractionalTranslation(
             translation: Offset(parallaxPercent * 1.5, 0.0),
-            child: OverflowBox(
-              maxWidth: double.infinity,
-              child: Image.asset(
-                viewModel.imageAssetPath,
-                fit: BoxFit.cover,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+                          child: SizedBox(
+                width: double.infinity,
+                child: Image.asset(
+                  viewModel.imageAssetPath,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
@@ -256,12 +259,12 @@ class BottomBar extends StatelessWidget {
     );
   }
 }
+
 class ScrollIndicator extends StatelessWidget {
   final int cardCount;
   final double scrollPercent;
 
   ScrollIndicator({
-    
     this.cardCount,
     this.scrollPercent,
   });
@@ -271,11 +274,12 @@ class ScrollIndicator extends StatelessWidget {
       painter: ScrollIndicatorPainter(
         cardCount: cardCount,
         scrollPercent: scrollPercent,
-        ),
+      ),
       child: Container(),
     );
   }
 }
+
 class ScrollIndicatorPainter extends CustomPainter {
   final int cardCount;
   final double scrollPercent;
@@ -285,55 +289,53 @@ class ScrollIndicatorPainter extends CustomPainter {
   ScrollIndicatorPainter({
     this.cardCount,
     this.scrollPercent,
-
-  }) : trackPaint = Paint()
-  ..color = Color(0xFF606060)
-  ..style = PaintingStyle.fill,
-  thumbPaint = Paint()
-  ..color = Color(0xFFF3EEB7)
-  ..style = PaintingStyle.fill;
+  })  : trackPaint = Paint()
+          ..color = Color(0xFF606060)
+          ..style = PaintingStyle.fill,
+        thumbPaint = Paint()
+          ..color = Color(0xFFF3EEB7)
+          ..style = PaintingStyle.fill;
 
   @override
-  void paint(Canvas canvas, Size size){
+  void paint(Canvas canvas, Size size) {
     //draw track
     canvas.drawRRect(
-      RRect.fromRectAndCorners(
-        Rect.fromLTWH(
-          0.0,
-          0.0, 
-          size.width, 
-          size.height,
+        RRect.fromRectAndCorners(
+          Rect.fromLTWH(
+            0.0,
+            0.0,
+            size.width,
+            size.height,
           ),
           topLeft: Radius.circular(3.0),
           topRight: Radius.circular(3.0),
           bottomLeft: Radius.circular(3.0),
           bottomRight: Radius.circular(3.0),
-          ), 
-          trackPaint);
+        ),
+        trackPaint);
 
-          //draw thumb
-          final thumbWidth = size.width / cardCount;
-          final thumbLeft = scrollPercent * size.width;
+    //draw thumb
+    final thumbWidth = size.width / cardCount;
+    final thumbLeft = scrollPercent * size.width;
 
-          canvas.drawRRect(
-      RRect.fromRectAndCorners(
-        Rect.fromLTWH(
-          thumbLeft,
-          0.0, 
-          thumbWidth, 
-          size.height,
+    canvas.drawRRect(
+        RRect.fromRectAndCorners(
+          Rect.fromLTWH(
+            thumbLeft,
+            0.0,
+            thumbWidth,
+            size.height,
           ),
           topLeft: Radius.circular(3.0),
           topRight: Radius.circular(3.0),
           bottomLeft: Radius.circular(3.0),
           bottomRight: Radius.circular(3.0),
-          ), 
-          thumbPaint);
-
-
+        ),
+        thumbPaint);
   }
+
   @override
-  bool shouldRepaint(CustomPainter oldDelegate){
+  bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
 }
