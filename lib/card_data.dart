@@ -19,7 +19,7 @@ final List<CardViewModel> demoCards = [
   CardViewModel(imageAssetPath: 'assets/images/steak.jpg', name: "Steak"),
   CardViewModel(imageAssetPath: 'assets/images/rockRockRock.jpg', name: 'Pre-Paper and Scissors'),
   CardViewModel(imageAssetPath: 'assets/images/uhoh.jpg', name: 'uhoh'),
-    CardViewModel(imageAssetPath: 'assets/images/bigOne.jpg', name: 'Sorry, Thag!'),
+  CardViewModel(imageAssetPath: 'assets/images/bigOne.jpg', name: 'Sorry, Thag!'),
   CardViewModel(imageAssetPath: 'assets/images/blizzard.jpg', name: 'Blizzard'),
   CardViewModel(imageAssetPath: 'assets/images/cowtown.jpg', name: "Cowtown"),
   CardViewModel(imageAssetPath: 'assets/images/tree.jpg', name: 'Tree'),
@@ -29,6 +29,7 @@ final List<CardViewModel> demoCards = [
   CardViewModel(imageAssetPath: 'assets/images/trapped.jpg', name: "Trapped"),
   CardViewModel(imageAssetPath: 'assets/images/maintain.jpg', name: 'Anthropologists!'),
   CardViewModel(imageAssetPath: 'assets/images/bikerCoffee.jpg', name: 'Biker Coffee'),
+  CardViewModel(imageAssetPath: 'assets/images/thagomizer.jpg', name: 'Biker Coffee'),
 ];
 
 class CardViewModel {

@@ -58,6 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+              SizedBox(
+                height: 30.0,
+              ),
+              
               BottomBar(
                 cardCount: demoCards.length,
                 scrollPercent: scrollPercent,
@@ -195,17 +199,14 @@ class Card extends StatelessWidget {
       fit: StackFit.expand,
       children: <Widget>[
         ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(20.0),
           child: FractionalTranslation(
-            translation: Offset(parallaxPercent * 1.5, 0.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-                          child: SizedBox(
-                width: double.infinity,
-                child: Image.asset(
-                  viewModel.imageAssetPath,
-                  fit: BoxFit.contain,
-                ),
+            translation: Offset(parallaxPercent * 2.0, 0.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: Image.asset(
+                viewModel.imageAssetPath,
+                fit: BoxFit.contain,
               ),
             ),
           ),
